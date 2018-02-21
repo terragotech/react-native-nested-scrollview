@@ -79,7 +79,7 @@ public class ReactNestedScrollView extends NestedScrollView implements ReactClip
             sTriedToGetScrollerField = true;
             try {
                 sScrollerField = NestedScrollView.class.getDeclaredField("mScroller");
-                sScrollerField.setAccessible(true);
+                makeAccessible(sScrollerField);
             } catch (NoSuchFieldException e) {
                 Log.w(
                     ReactConstants.TAG,
@@ -348,5 +348,8 @@ public class ReactNestedScrollView extends NestedScrollView implements ReactClip
         }
 
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
+    }
+    private void makeAccessible(Field field){
+        field.setAccessible(true);
     }
 }
